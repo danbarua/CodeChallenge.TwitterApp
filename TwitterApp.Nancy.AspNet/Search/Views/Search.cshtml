@@ -1,0 +1,27 @@
+﻿
+@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<TwitterApp.Nancy.Search.Models.SearchViewModel>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Search Tweets</title>
+</head>
+<body>
+<div>
+    @if (Model.Result != null)
+    {
+        <ul>
+            @foreach (var result in Model.Result.Tweets)
+            {
+                <li>@result.Author : @result.Content</li>
+            }
+        </ul>
+    }
+</div>
+</body>
+</html>

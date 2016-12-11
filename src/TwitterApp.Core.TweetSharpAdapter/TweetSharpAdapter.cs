@@ -27,19 +27,14 @@
                         Count = count,
                         MaxId = maxId
                     }).ConfigureAwait(false);
+
             search.Response.ThrowIfFailed();
 
             return new TweetSearchResult()
                        {
                            Tweets =
                                search.Value.Statuses.Select(
-                                   x => new Tweet()
-                                   {
-                                       Content = x.Text,
-                                       Id = x.Id,
-                                       Author = x.Author.ScreenName,
-                                       CreatedDate = x.CreatedDate
-                                   }).ToArray(),
+                                   x => new Tweet(x.Id, x.Text, x.Author.ScreenName, x.CreatedDate)).ToArray(),
                            MinId = search.Value.Statuses.Min(x => x.Id)
                        };
         }

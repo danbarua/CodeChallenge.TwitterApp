@@ -5,13 +5,21 @@
 
     public class Tweet
     {
-        public long Id { get; set; }
+        public Tweet(long id, string content, string author, DateTime createdDate)
+        {
+            this.Id = id;
+            this.Content = content;
+            this.Author = author;
+            this.CreatedDate = createdDate;
+        }
 
-        public string Content { get; set; }
+        public long Id { get; }
 
-        public string Author { get; set; }
+        public string Content { get; }
 
-        public DateTime CreatedDate { get; set; }
+        public string Author { get; }
+
+        public DateTime CreatedDate { get; }
 
         public override string ToString()
         {

@@ -30,9 +30,19 @@
                 tweet.Author.Should().NotBeNullOrEmpty("expect Author to be populated.");
                 tweet.CreatedDate.Should().NotBe(default(DateTime), "Expect CreatedDate to be populated");
                 tweet.Content.Should().NotBeNullOrEmpty("Expect Content to be populated");
-
-                Console.WriteLine(tweet);
             }
+        }
+
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        public async Task Searching_With_Invalid_Query_Should_Throw(string query)
+        {
+            var fixture = await this.GetFixture().ConfigureAwait(false);
+            var ex = await Record.ExceptionAsync(async () => { await fixture.SearchTweets(query).ConfigureAwait(false); });
+
+            ex.Should().BeOfType<TwitterException>();
+            ex.Message.Should().Be("Query parameters are missing.");
         }
 
         [Fact]
@@ -59,13 +69,16 @@
         {
             var fixture = await this.GetFixture().ConfigureAwait(false);
             var firstPage = await fixture.SearchTweets("#DreamJob", 5).ConfigureAwait(false);
-
-            //todo: need to add -1 to minId to avoid overlap - push this logic into the api?
-            var secondPage = await fixture.SearchTweets("#DreamJob", 5, firstPage.MinId - 1).ConfigureAwait(false);
+            var secondPage = await fixture.SearchTweets("#DreamJob", 5, firstPage.MinId).ConfigureAwait(false);
 
             secondPage.MinId.Should().BeLessThan(firstPage.MinId);
 
-            foreach (var tweetId in secondPage.Tweets.Select(x => x.Id))
+            //Twitter API returns the Tweet with max_id in the results
+            secondPage.Tweets.Should().Contain(x => x.Id == firstPage.MinId);
+
+            foreach (var tweetId in secondPage.Tweets
+                                                .Where(x => x.Id != firstPage.MinId) // the maxId tweet is included in the 2nd page
+                                                .Select(x => x.Id))
             {
                 firstPage.Tweets.Select(x => x.Id).Should().NotContain(tweetId);
             }
