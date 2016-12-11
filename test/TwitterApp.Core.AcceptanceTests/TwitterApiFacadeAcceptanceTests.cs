@@ -76,11 +76,12 @@
             //Twitter API returns the Tweet with max_id in the results
             secondPage.Tweets.Should().Contain(x => x.Id == firstPage.MinId);
 
+            //check that other tweets do not overlap
             foreach (var tweetId in secondPage.Tweets
                                                 .Where(x => x.Id != firstPage.MinId) // the maxId tweet is included in the 2nd page
                                                 .Select(x => x.Id))
             {
-                firstPage.Tweets.Select(x => x.Id).Should().NotContain(tweetId);
+               firstPage.Tweets.Select(x => x.Id).Should().NotContain(tweetId);
             }
         }
 

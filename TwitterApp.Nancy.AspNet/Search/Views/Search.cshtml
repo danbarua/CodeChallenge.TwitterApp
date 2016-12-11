@@ -1,27 +1,55 @@
-﻿
-@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<TwitterApp.Nancy.Search.Models.SearchViewModel>
+﻿@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<TwitterApp.Nancy.Search.Models.SearchViewModel>
 
 @{
-    Layout = null;
+    Layout = "_Layout.cshtml";
 }
+<h3>Search Tweets</h3>
+<form class="form-horizontal" role="form" method="post" autocomplete="off">
 
-<!DOCTYPE html>
+    <div class="form-group">
+        <label class="control-label col-sm-3" for="Query">Query</label>
+        <div class="col-sm-3">
+            <input type="text" class="form-control" name="Query" value="@Model.Query.Query">
+        </div>
+        <label class="control-label col-sm-3" for="Count">Count</label>
+        <div class="col-sm-3">
+            <input type="number" class="form-control" name="Count" value="@Model.Query.Count">
+        </div>
+        <input type="submit"/>
+    </div>
+</form>
 
-<html>
-<head>
-    <title>Search Tweets</title>
-</head>
-<body>
-<div>
-    @if (Model.Result != null)
-    {
-        <ul>
-            @foreach (var result in Model.Result.Tweets)
-            {
-                <li>@result.Author : @result.Content</li>
-            }
-        </ul>
-    }
-</div>
-</body>
-</html>
+@if (Model.Result != null)
+{
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Author</th>
+            <th>Content</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var tweet in Model.Result.Tweets)
+        {
+            <tr>
+                <td>
+                    @tweet.Author
+                </td>
+                <td>
+                    @tweet.Content
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+
+    <div>
+        insert [next] button here
+        <form role="form" method="post">
+            <input type="hidden" name="Query" value="@Model.Query.Query"/>
+            <input type="hidden" name="Count" value="@Model.Query.Count"/>
+            <input type="hidden" name="MaxId" value="@Model.Result.MinId"/>
+            <input type="submit"/>
+        </form>
+    </div>
+}
