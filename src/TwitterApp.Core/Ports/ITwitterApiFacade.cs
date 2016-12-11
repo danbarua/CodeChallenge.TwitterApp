@@ -6,7 +6,7 @@
 
     public interface ITwitterApiFacade
     {
-        Task<TweetSearchResult> SearchTweets();
+        Task<TweetSearchResult> SearchTweets(string query, int count = 15, long? maxId = null);
 
         Task PostTweet(string content);
 

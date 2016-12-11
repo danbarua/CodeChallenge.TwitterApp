@@ -43,6 +43,7 @@
     <Compile Include="Models\Tweet.cs" />
     <Compile Include="Models\TweetSearchResult.cs" />
     <Compile Include="Ports\ITwitterApiFacade.cs" />
+    <Compile Include="Ports\TwitterException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

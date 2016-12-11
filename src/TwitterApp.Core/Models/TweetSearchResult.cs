@@ -4,6 +4,6 @@
     {
         public Tweet[] Tweets { get; set; }
 
-        public long MaxId { get; set; }
+        public long MinId { get; set; }
     }
 }

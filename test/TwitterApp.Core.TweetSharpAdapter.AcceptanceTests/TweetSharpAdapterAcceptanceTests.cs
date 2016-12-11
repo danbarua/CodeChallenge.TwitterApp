@@ -1,19 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TwitterApp.Core.TweetSharpAdapter.AcceptanceTests
+﻿namespace TwitterApp.Core.TweetSharpAdapter.AcceptanceTests
 {
-    using TwitterApp.Core.AcceptanceTests;
+    using System.Configuration;
+    using System.Threading.Tasks;
+
     using TwitterApp.Core.Ports;
 
     public class TweetSharpAdapterAcceptanceTests : TwitterApiFacadeAcceptanceTests
     {
-        protected override ITwitterApiFacade GetFixture()
+        protected override async Task<ITwitterApiFacade> GetFixture()
         {
-            return new TweetSharpAdapter();
+            var consumerKey = ConfigurationManager.AppSettings["ConsumerKey"];
+            var consumerSecret = ConfigurationManager.AppSettings["ConsumerSecret"];
+            var accessToken = ConfigurationManager.AppSettings["AccessToken"];
+            var accessTokenSecret = ConfigurationManager.AppSettings["AccessTokenSecret"];
+
+            var fixture =
+                await
+                TweetSharpAdapter.Create(consumerKey, consumerSecret, accessToken, accessTokenSecret)
+                    .ConfigureAwait(false);
+            return fixture;
         }
     }
 }
