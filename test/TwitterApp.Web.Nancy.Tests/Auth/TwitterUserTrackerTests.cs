@@ -79,5 +79,24 @@
             result.Should().NotBeNull();
             result.UserId.Should().Be(TwitterUserId);
         }
+
+        [Fact]
+        public void Can_register_multiple_sessions_from_the_same_user()
+        {
+            const long TwitterUserId = 123L;
+            var sessionid = Guid.NewGuid();
+            var secondSessionId = Guid.NewGuid();
+
+            var client = A.Fake<ITwitterAuthenticatedClient>();
+            A.CallTo(() => client.UserId).Returns(TwitterUserId);
+            var sut = new TwitterUserTracker();
+
+            sut.Register(sessionid, client);
+            sut.Register(secondSessionId, client);
+
+            var result = sut.GetAuthenticatedTwitterClientForUser(TwitterUserId);
+            result.Should().NotBeNull();
+            result.UserId.Should().Be(TwitterUserId);
+        }
     }
 }

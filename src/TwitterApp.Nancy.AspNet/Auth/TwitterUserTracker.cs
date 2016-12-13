@@ -11,8 +11,9 @@
 
     public class TwitterUserTracker : ITwitterUserTracker
     {
-        private readonly ConcurrentDictionary<Guid, ITwitterAuthenticatedClient> map =
-            new ConcurrentDictionary<Guid, ITwitterAuthenticatedClient>();
+        private readonly ConcurrentDictionary<Guid, long> sessionUserIdMap = new ConcurrentDictionary<Guid, long>();
+
+        private readonly ConcurrentDictionary<long, ITwitterAuthenticatedClient> userClientMap = new ConcurrentDictionary<long, ITwitterAuthenticatedClient>();  
 
         public void Register(Guid id, ITwitterAuthenticatedClient twitterApi)
         {
@@ -31,21 +32,29 @@
                 throw new InvalidOperationException("Cannot register an anauthorized Twitter Client");
             }
 
-            this.map.TryAdd(id, twitterApi);
+            this.sessionUserIdMap.TryAdd(id, twitterApi.UserId.Value);
+            this.userClientMap.TryAdd(twitterApi.UserId.Value, twitterApi);
         }
 
         public ITwitterAuthenticatedClient GetAuthenticatedTwitterClientForUser(long userId)
         {
-            return this.map.Values.SingleOrDefault(x => x.UserId == userId);
+            ITwitterAuthenticatedClient value;
+
+            if (this.userClientMap.TryGetValue(userId, out value))
+            {
+                return value;
+            }
+
+            return null;
         }
 
         public IUserIdentity GetUserFromIdentifier(Guid identifier, NancyContext context)
         {
-            ITwitterAuthenticatedClient value;
+            long value;
 
-            if (this.map.TryGetValue(identifier, out value))
+            if (this.sessionUserIdMap.TryGetValue(identifier, out value))
             {
-                return new TwitterUser(value.UserId.Value);
+                return new TwitterUser(value);
             }
 
             return null;
