@@ -1,4 +1,4 @@
-﻿namespace TwitterApp.Web.Nancy.Tests
+﻿namespace TwitterApp.Web.Nancy.Tests.Search
 {
     using FakeItEasy;
 
