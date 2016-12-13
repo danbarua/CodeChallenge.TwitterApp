@@ -18,7 +18,7 @@ namespace TwitterApp.Web.Nancy.Tests.Auth
     public class AuthModuleTests
     {
         [Fact]
-        public void Get_Auth_Sign_In_Populates_Link()
+        public void Get_Auth_Sign_In_Populates_Twitter_Auth_Link()
         {
             //arrange
             var twitterApi = A.Fake<ITwitterAuthenticatedClient>();
