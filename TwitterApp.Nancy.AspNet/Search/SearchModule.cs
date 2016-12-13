@@ -2,6 +2,7 @@
 {
     using global::Nancy;
     using global::Nancy.ModelBinding;
+    using global::Nancy.Security;
 
     using TwitterApp.Core.Models;
     using TwitterApp.Core.Ports;
@@ -9,14 +10,15 @@
 
     public class SearchModule : NancyModule
     {
-        public SearchModule(ITwitterApiFacade twitterApi)
+        public SearchModule(ITwitterPublicClient twitterSearch)
         {
+
             this.Get["/search"] = _ => this.View["Search", new SearchViewModel()];
 
             this.Post["/search", true] = async (_, __) =>
                 {
                     var query = this.Bind<SearchQuery>();
-                    TweetSearchResult result = await twitterApi.SearchTweets(query.Query, query.Count ?? 15, query.MaxId);
+                    TweetSearchResult result = await twitterSearch.SearchTweets(query.Query, query.Count ?? 15, query.MaxId);
 
                     return this.Negotiate
                                     .WithModel(new SearchViewModel(query, result))

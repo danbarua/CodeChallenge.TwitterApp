@@ -52,7 +52,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="TweetSharpAdapter.cs" />
+    <Compile Include="TweetSharpAuthenticatedClientAdapter.cs" />
+    <Compile Include="TweetSharpPublicClientAdapter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TwitterResponseExtensions.cs" />
   </ItemGroup>

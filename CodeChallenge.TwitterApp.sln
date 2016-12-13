@@ -11,8 +11,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TwitterApp.Core.AcceptanceT
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TwitterApp.Core.TweetSharpAdapter.AcceptanceTests", "test\TwitterApp.Core.TweetSharpAdapter.AcceptanceTests\TwitterApp.Core.TweetSharpAdapter.AcceptanceTests.csproj", "{428C6FB4-9408-44F8-9B21-7F79F278ECE9}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Config", "Config", "{BF852C2B-5D6D-41B7-B7F8-33A0532B5C68}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{48A68C7E-3576-4AF2-A345-34C70C3E6796}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{A286B069-ADE6-46E1-BBD6-555B2211B437}"

@@ -1,7 +1,9 @@
-﻿@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<TwitterApp.Nancy.Search.Models.SearchViewModel>
+﻿@using TwitterApp.Nancy.AspNet.Auth
+@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<TwitterApp.Nancy.Search.Models.SearchViewModel>
 
 @{
     Layout = "_Layout.cshtml";
+    var currentUser = Context.CurrentUser as TwitterUser;
 }
 <h3>Search Tweets</h3>
 <form class="form-horizontal" role="form" method="post" autocomplete="off">
@@ -15,7 +17,8 @@
         <div class="col-sm-3">
             <input type="number" class="form-control" name="Count" value="@Model.Query.Count">
         </div>
-        <input type="submit"/>
+        <button type="submit">Search Tweets</button>
+        <button type="reset">Reset</button>
     </div>
 </form>
 
@@ -26,6 +29,7 @@
         <tr>
             <th>Author</th>
             <th>Content</th>
+            <th>Action</th>
         </tr>
         </thead>
         <tbody>
@@ -33,10 +37,16 @@
         {
             <tr>
                 <td>
-                    @tweet.Author
+                    @tweet.AuthorScreenName
                 </td>
                 <td>
                     @tweet.Content
+                </td>
+                <td>
+                    @if (currentUser != null && currentUser.TwitterUserId == tweet.AuthorUserId)
+                    {
+                        <button class="btn-danger">Delete</button>
+                    }
                 </td>
             </tr>
         }
@@ -44,12 +54,11 @@
     </table>
 
     <div>
-        insert [next] button here
         <form role="form" method="post">
             <input type="hidden" name="Query" value="@Model.Query.Query"/>
             <input type="hidden" name="Count" value="@Model.Query.Count"/>
             <input type="hidden" name="MaxId" value="@Model.Result.MinId"/>
-            <input type="submit"/>
+            <button type="submit">Show More Tweets</button>
         </form>
     </div>
 }

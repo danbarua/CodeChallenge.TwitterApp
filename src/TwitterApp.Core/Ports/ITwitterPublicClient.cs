@@ -4,12 +4,8 @@
 
     using TwitterApp.Core.Models;
 
-    public interface ITwitterApiFacade
+    public interface ITwitterPublicClient
     {
         Task<TweetSearchResult> SearchTweets(string query, int count = 15, long? maxId = null);
-
-        Task PostTweet(string content);
-
-        Task DeleteTweet(long tweetId);
     }
 }

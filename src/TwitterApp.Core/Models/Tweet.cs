@@ -5,11 +5,12 @@
 
     public class Tweet
     {
-        public Tweet(long id, string content, string author, DateTime createdDate)
+        public Tweet(long id, string content, long authorUserId, string authorScreenName, DateTime createdDate)
         {
             this.Id = id;
             this.Content = content;
-            this.Author = author;
+            this.AuthorUserId = authorUserId;
+            this.AuthorScreenName = authorScreenName;
             this.CreatedDate = createdDate;
         }
 
@@ -17,14 +18,11 @@
 
         public string Content { get; }
 
-        public string Author { get; }
+        public long AuthorUserId { get; }
+
+        public string AuthorScreenName { get; }
 
         public DateTime CreatedDate { get; }
-
-        public override string ToString()
-        {
-            return $"Id: {this.Id}, Content: {this.Content}, Author: {this.Author}, CreatedDate: {this.CreatedDate}";
-        }
 
         protected bool Equals(Tweet other)
         {
