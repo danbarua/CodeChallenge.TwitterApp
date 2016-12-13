@@ -19,7 +19,29 @@
     public class SearchModuleTests
     {
         [Fact]
-        public void Get_search_returns_empty_view()
+        public void Get_index_should_redirect_to_search()
+        {
+            //arrange
+            var twitterApi = A.Fake<ITwitterPublicClient>();
+
+            var bootstrapper = new TestBootstrapper(
+                with =>
+                {
+                    with.Module<SearchModule>();
+                    with.Dependency(twitterApi);
+                });
+
+            var browser = new Browser(bootstrapper);
+
+            //act
+            var response = browser.Get("/");
+
+            //assert
+            response.ShouldHaveRedirectedTo("/search");
+        }
+
+        [Fact]
+        public void Get_search_should_return_empty_view()
         {
             //arrange
             var twitterApi = A.Fake<ITwitterPublicClient>();
@@ -50,7 +72,7 @@
         }
 
         [Fact]
-        public void Post_search_returns_view_populated_with_query_and_result()
+        public void Post_search_should_return_view_populated_with_query_and_result()
         {
             //arrange
             var fixture = new Fixture();
