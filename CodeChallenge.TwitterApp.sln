@@ -15,9 +15,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{48A68C
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{A286B069-ADE6-46E1-BBD6-555B2211B437}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TwitterApp.Web.Nancy.Tests", "src\TwitterApp.Web.Nancy.Tests\TwitterApp.Web.Nancy.Tests.csproj", "{5F183190-0841-4124-836A-F0E3D07CCE8F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TwitterApp.Web.Nancy.Tests", "test\TwitterApp.Web.Nancy.Tests\TwitterApp.Web.Nancy.Tests.csproj", "{5F183190-0841-4124-836A-F0E3D07CCE8F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TwitterApp.Nancy.AspNet", "TwitterApp.Nancy.AspNet\TwitterApp.Nancy.AspNet.csproj", "{6F739444-0DC8-4AE3-BAAD-1DB0AC969B87}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TwitterApp.Nancy.AspNet", "src\TwitterApp.Nancy.AspNet\TwitterApp.Nancy.AspNet.csproj", "{6F739444-0DC8-4AE3-BAAD-1DB0AC969B87}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -3,6 +3,7 @@
 
 @{
     Layout = "_Layout.cshtml";
+    string message = ViewBag.Message ?? Request.Query.Message;
 }
 <h3>Send A Tweet</h3>
 <form class="form-horizontal" role="form" method="post" autocomplete="off">
@@ -16,9 +17,9 @@
     </div>
 </form>
 
-@if (ViewBag.Message != null)
+@if (message != null)
 {
-    <span class="alert">@ViewBag.Message</span>
+    <span class="alert">@message</span>
 }
 
 @if (Model != null)

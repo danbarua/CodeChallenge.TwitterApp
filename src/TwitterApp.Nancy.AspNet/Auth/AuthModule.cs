@@ -9,7 +9,7 @@
 
     public class AuthModule : NancyModule
     {
-        public AuthModule(ITwitterAuthenticatedClient twitterApi, TwitterUserTracker userTracker)
+        public AuthModule(ITwitterAuthenticatedClient twitterApi, ITwitterUserTracker userTracker)
             : base("/auth")
         {
             this.Get["/signin", true] = async (_, __) =>
@@ -27,10 +27,11 @@
             this.Get["/callback", true] = async (_, __) =>
                 {
                     await twitterApi.Authenticate((string)Request.Query.oauth_token, (string)Request.Query.oauth_verifier);
+
                     Guid sessionId = Guid.NewGuid();
                     userTracker.Register(sessionId, twitterApi);
 
-                    return this.LoginAndRedirect(sessionId, null, "~/Search");
+                    return this.LoginAndRedirect(sessionId);
                 };
         }
     }

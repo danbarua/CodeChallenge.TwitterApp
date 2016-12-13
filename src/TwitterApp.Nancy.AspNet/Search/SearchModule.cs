@@ -12,6 +12,7 @@
     {
         public SearchModule(ITwitterPublicClient twitterSearch)
         {
+            this.Get["/"] = _ => this.Response.AsRedirect("/search");
 
             this.Get["/search"] = _ => this.View["Search", new SearchViewModel()];
 

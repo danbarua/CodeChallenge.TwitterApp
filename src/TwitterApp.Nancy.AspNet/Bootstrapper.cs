@@ -35,12 +35,20 @@ namespace TwitterApp.Nancy.AspNet
                     .GetAwaiter()
                     .GetResult();
 
+            // public twitter client singleton
             container.Register<ITwitterPublicClient>(twitterApi);
 
+            // factory method for authed twitter client
+            // instantiated on sign in then cached in-mem
+            // for each user
             container.Register<ITwitterAuthenticatedClient>((_, __) => new TweetSharpAuthenticatedClientAdapter(consumerKey, consumerSecret));
-            var twitterUserMapper = new TwitterUserTracker();
-            container.Register(twitterUserMapper);
-            container.Register<IUserMapper>(twitterUserMapper);
+
+            // user tracker singleton
+            // maps session guids to IUserIdentity
+            // retrieves authenticated twitter client for a given user
+            var twitterUserTracker = new TwitterUserTracker();
+            container.Register<ITwitterUserTracker>(twitterUserTracker);
+            container.Register<IUserMapper>(twitterUserTracker);
         }
 
         protected override void ConfigureConventions(NancyConventions nancyConventions)
@@ -56,12 +64,6 @@ namespace TwitterApp.Nancy.AspNet
         {
             base.RequestStartup(container, pipelines, context);
 
-            // At request startup we modify the request pipelines to
-            // include forms authentication - passing in our now request
-            // scoped user name mapper.
-            //
-            // The pipelines passed in here are specific to this request,
-            // so we can add/remove/update items in them as we please.
             var formsAuthConfiguration =
                 new FormsAuthenticationConfiguration()
                 {

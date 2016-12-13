@@ -25,11 +25,14 @@ namespace TwitterApp.Web.Nancy.Tests.Auth
             var callBackUrl = new Uri("http://api.faketwitter.com/?foo=bar");
             A.CallTo(() => twitterApi.GetAuthorizationUri(A<string>._)).Returns(callBackUrl);
 
+            var twitterUserTracker = new TwitterUserTracker();
+
             var bootstrapper = new TestBootstrapper(
                 with =>
                     {
                         with.Module<AuthModule>();
                         with.Dependency<ITwitterAuthenticatedClient>(twitterApi);
+                        with.Dependency<ITwitterUserTracker>(twitterUserTracker);
                     });
 
             var browser = new Browser(bootstrapper);

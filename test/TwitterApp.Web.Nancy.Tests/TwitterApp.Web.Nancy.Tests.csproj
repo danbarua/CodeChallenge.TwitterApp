@@ -99,7 +99,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Auth\AuthModuleTests.cs" />
-    <Compile Include="Auth\TwitterUserMapperTests.cs" />
     <Compile Include="Search\SearchModuleTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestBootstrapper.cs" />
@@ -111,13 +110,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\TwitterApp.Nancy.AspNet\TwitterApp.Nancy.AspNet.csproj">
-      <Project>{6F739444-0DC8-4AE3-BAAD-1DB0AC969B87}</Project>
-      <Name>TwitterApp.Nancy.AspNet</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\TwitterApp.Core\TwitterApp.Core.csproj">
+    <ProjectReference Include="..\..\src\TwitterApp.Core\TwitterApp.Core.csproj">
       <Project>{837E0603-9410-45CD-B923-91C7DE4FEE49}</Project>
       <Name>TwitterApp.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\TwitterApp.Nancy.AspNet\TwitterApp.Nancy.AspNet.csproj">
+      <Project>{6f739444-0dc8-4ae3-baad-1db0ac969b87}</Project>
+      <Name>TwitterApp.Nancy.AspNet</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

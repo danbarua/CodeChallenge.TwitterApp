@@ -7,7 +7,7 @@
 
     public class TweetModule : NancyModule
     {
-        public TweetModule(TwitterUserTracker userTracker) : base("/tweet")
+        public TweetModule(ITwitterUserTracker userTracker) : base("/tweet")
         {
             this.RequiresAuthentication();
 
@@ -27,7 +27,7 @@
                 {
                     var twitterApi = userTracker.GetAuthenticatedTwitterClientForUser(this.GetCurrentUser().TwitterUserId);
                     await twitterApi.DeleteTweet(_.id);
-                    return Response.AsRedirect("/tweet");
+                    return Response.AsRedirect("/tweet?message=Tweet%20Deleted");
                 };
         }
 
