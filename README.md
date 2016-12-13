@@ -1,10 +1,10 @@
 # CodeChallenge.TwitterApp
 
-Requirements:
+##Dependencies:
 - .Net 4.6.1
 - Asp.Net
 
-Issues:
+##Issues:
 - Code quality is... hackathon grade
 - ..as are the tests
  - Integration testing with Twitter API requires OAuth access tokens
