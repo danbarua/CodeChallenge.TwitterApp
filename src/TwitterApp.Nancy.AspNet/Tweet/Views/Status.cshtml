@@ -5,22 +5,26 @@
     Layout = "_Layout.cshtml";
     string message = ViewBag.Message ?? Request.Query.Message;
 }
-<h3>Send A Tweet</h3>
-<form class="form-horizontal" role="form" method="post" autocomplete="off">
 
-    <div class="form-group">
-        <label class="control-label col-sm-3" for="Content">Content</label>
-        <div class="col-sm-3">
-            <input type="text" class="form-control" name="Content">
-        </div>
-        <button type="submit">Send Tweet</button>
-    </div>
-</form>
 
 @if (message != null)
 {
-    <span class="alert">@message</span>
+    <div class="alert alert-info" role="alert">
+        @message
+    </div>
 }
+
+<h3>Send A Tweet</h3>
+
+<form class="form" role="form" method="post" autocomplete="off">
+
+    <div class="form-group">
+        <label class="control-label" for="Content">Content</label>
+        <input type="text" class="form-control" id="Content" name="Content">
+    </div>
+    <button type="submit" class="btn btn-success">Send Tweet</button>
+</form>
+
 
 @if (Model != null)
 {
@@ -69,7 +73,7 @@
 
     <div>
         <form role="form" method="post" action="/tweet/delete/@Model.Id">
-            <button type="submit" class="btn-danger">Delete Tweet</button>
+            <button type="submit" class="btn btn-danger">Delete Tweet</button>
         </form>
     </div>
 }
